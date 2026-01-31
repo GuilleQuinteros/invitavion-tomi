@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: radial-gradient(circle at top, #0a1a12, #000000);
+  color: white;
+}
+
+.jungle-bg {
+  background-image: url("/images/jungle.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.fog {
+  position: absolute;
+  inset: 0;
+  background: url("/images/fog.png");
+  opacity: 0.15;
+  animation: fogMove 60s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fogMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 10000px 0;
+  }
+}
