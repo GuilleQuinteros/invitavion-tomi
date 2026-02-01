@@ -1,51 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: radial-gradient(circle at top, #0a1a12, #000000);
   color: white;
 }
-
-.jungle-bg {
-  background-image: url("/images/jungle.jpg");
+    .title-font {
+      font-family: var(--font-title);
+      letter-spacing: 0.12em;
+    }
+  
+    .body-font {
+      font-family: var(--font-body);
+    }
+/* 🎬 Banner */
+.banner {
+  background-image: url("/images/banner.jpg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  height: 100vh;
 }
 
-.fog {
+/* 🌴 Fondo largo */
+.jungle-bg {
+  background: url("/images/jungle-long.jpg") center top / cover no-repeat fixed;
+}
+
+/* 🦖 Dino base */
+.dino {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+
+/* RAPTOR */
+.dino-raptor {
+  width: 360px;
+  left: 0;
+}
+
+/* TREX */
+.dino-trex {
+  width: 460px;
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .dino-raptor {
+    width: 260px;
+  }
+
+  .dino-trex {
+    width: 320px;
+  }
+}
+
+/* 🌿 Parallax más suave */
+.jungle-bg {
+  background-attachment: fixed;
+  will-change: background-position;
+}
+
+/* 🦖 Interactivo */
+.dino {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+/* 👣 Vibración más real */
+body {
+  overflow-x: hidden;
+}
+
+/* 🎬 Tipografías cinematic */
+.title-font {
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.06em;
+}
+
+.body-font {
+  font-family: "Inter", sans-serif;
+}
+
+/* ✨ Reveal text */
+.reveal-text {
+  opacity: 0;
+}
+
+/* ⏳ Countdown Premium */
+#countdown {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.countdown-box {
+  text-align: center;
+  min-width: 90px;
+}
+
+.countdown-box span {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  display: block;
+}
+
+.countdown-box small {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  opacity: 0.75;
+}
+
+/* 🦖 Dino cinematic hover */
+.dino {
+  transition: transform 0.3s ease;
+}
+
+.dino:hover {
+  transform: scale(1.06) rotate(-0.5deg);
+}
+
+/* 🌿 Fondo jungle premium */
+.jungle-bg {
+  background: url("/images/jungle-long.jpg") center / cover fixed;
+}
+
+.hourglass {
+  width: 120px;
+  height: 180px;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 24px;
+  backdrop-filter: blur(6px);
+}
+
+.sand-top {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(#f7d046, #d9a600);
+  animation: sandTopDrain 12s linear infinite;
+}
+
+.sand-stream {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 80px;
+  background: gold;
+  transform: translateX(-50%);
+}
+
+.sand-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(#f7d046, #d9a600);
+  animation: sandBottomFill 12s linear infinite;
+}
+
+@keyframes sandTopDrain {
+  to {
+    height: 0%;
+  }
+}
+
+@keyframes sandBottomFill {
+  to {
+    height: 50%;
+  }
+}
+
+#plant-close {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.plant-left,
+.plant-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plant-left {
+  left: -60%;
+}
+
+.plant-right {
+  right: -60%;
+}
+
+.final-text {
   position: absolute;
   inset: 0;
-  background: url("/images/fog.png");
-  opacity: 0.15;
-  animation: fogMove 60s linear infinite;
-  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  opacity: 0;
+  color: gold;
 }
 
-@keyframes fogMove {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: 10000px 0;
-  }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/images/film-grain.png");
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 9999;
 }
