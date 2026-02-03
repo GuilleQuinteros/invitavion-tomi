@@ -385,7 +385,10 @@ useEffect(() => {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end justify-between p-2">
+        <div className="absolute inset-0 bg-black/40 
+                opacity-100 md:opacity-0 
+                  md:group-hover:opacity-100 
+                transition flex items-end justify-between p-2">
 
           <button
             onClick={() => setSelected(img)}
