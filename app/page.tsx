@@ -121,7 +121,7 @@ useEffect(() => {
     setInterval(() => {
     const roar = Math.random() > 0.5 ? "trex" : "raptor";
     sounds.current[roar]?.play();
-    }, 8000);
+    }, 12000);
 
 
     // 🎼 Iniciar música principal
@@ -345,7 +345,7 @@ useEffect(() => {
             Confirmar asistencia
           </h2>
           <a
-            href="https://wa.me/XXXXXXXXXX?text=Confirmo asistencia al cumple jurásico 🦖🔥"
+            href="https://wa.me/+5493704694631?text=Confirmo asistencia al cumple jurásico 🦖🔥"
             target="_blank"
             className="px-8 py-4 bg-green-600 rounded-xl font-bold hover:scale-105 transition"
           >
@@ -386,9 +386,9 @@ useEffect(() => {
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/40 
-opacity-100 md:opacity-0 
-md:group-hover:opacity-100 
-transition flex items-end justify-between p-2">
+                opacity-100 md:opacity-0 
+                  md:group-hover:opacity-100 
+                transition flex items-end justify-between p-2">
 
           <button
             onClick={() => setSelected(img)}
