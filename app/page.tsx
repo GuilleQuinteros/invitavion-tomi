@@ -398,13 +398,13 @@ useEffect(() => {
           >
             Ver
           </button>
-
+          {/*
           <button
             onClick={() => deletePhoto(img.name)}
             className="text-red-400 text-xs bg-black/60 px-2 py-1 rounded"
           >
             Borrar
-          </button>
+          </button>*/}
 
         </div>
       </div>
