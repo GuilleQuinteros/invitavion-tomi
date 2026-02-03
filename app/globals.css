@@ -1,50 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&display=swap');
 @import "tailwindcss";
+
+/* ============================= */
+/* 🎬 BASE GLOBAL */
+/* ============================= */
 
 body {
   background: radial-gradient(circle at top, #0a1a12, #000000);
   color: white;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
-    .title-font {
-      font-family: var(--font-title);
-      letter-spacing: 0.12em;
-    }
-  
-    .body-font {
-      font-family: var(--font-body);
-    }
-/* 🎬 Banner */
+
+/* ============================= */
+/* 🎬 TIPOGRAFÍAS CINEMATIC */
+/* ============================= */
+
+.title-font {
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.08em;
+}
+
+.body-font {
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ============================= */
+/* 🎬 BANNER */
+/* ============================= */
+
 .banner {
   background-image: url("/images/banner.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center top;
+  filter: contrast(1.15) brightness(1.05) saturate(1.1);
+  min-height: 92vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  padding: 2rem 1.2rem;
+  text-align: center;
 }
 
-/* 🌴 Fondo largo */
+/* MOBILE: mostrar imagen completa */
+@media (max-width: 768px) {
+  .banner {
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+}
+
+/* DESKTOP: efecto cine */
+@media (min-width: 769px) {
+  .banner {
+    background-size: cover;
+  }
+}
+
+.banner::after {
+  background: radial-gradient(circle at center,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.65));
+}
+
+/* ============================= */
+/* 🌴 FONDO JUNGLE PARALLAX */
+/* ============================= */
+
 .jungle-bg {
-  background: url("/images/jungle-long.jpg") center top / cover no-repeat fixed;
+  background: url("/images/jungle-long.jpg") center / cover no-repeat fixed;
+  will-change: background-position;
 }
 
-/* 🦖 Dino base */
+/* ============================= */
+/* 🦖 SECCIONES DINO */
+/* ============================= */
+
+#section-raptor,
+#section-trex {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================= */
+/* 🦖 DINOS BASE */
+/* ============================= */
+
 .dino {
   position: absolute;
   bottom: 0;
   pointer-events: none;
   opacity: 0;
   z-index: 10;
+  transition: transform 0.3s ease, opacity 0.6s ease;
+  cursor: pointer;
 }
 
 /* RAPTOR */
+
 .dino-raptor {
   width: 360px;
-  left: 0;
+  left: -40px;
 }
 
-/* TREX */
-.dino-trex {
-  width: 460px;
-  right: 0;
+/* TREX FIX CINEMÁTICO */
+
+#section-trex {
+  position: relative;
+  overflow: hidden;
+  min-height: 70vh;
 }
+
+.dino-trex {
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  width: 420px;
+  max-width: 90vw;
+  z-index: 12;
+  object-fit: contain;
+}
+
+/* ============================= */
+/* 📱 RESPONSIVE DINOS */
+/* ============================= */
 
 @media (max-width: 768px) {
   .dino-raptor {
@@ -56,39 +137,26 @@ body {
   }
 }
 
-/* 🌿 Parallax más suave */
-.jungle-bg {
-  background-attachment: fixed;
-  will-change: background-position;
+/* ============================= */
+/* 🦖 HOVER CINEMATIC */
+/* ============================= */
+
+.dino:hover {
+  transform: scale(1.06) rotate(-0.4deg);
 }
 
-/* 🦖 Interactivo */
-.dino {
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
+/* ============================= */
+/* ✨ TEXT REVEAL */
+/* ============================= */
 
-/* 👣 Vibración más real */
-body {
-  overflow-x: hidden;
-}
-
-/* 🎬 Tipografías cinematic */
-.title-font {
-  font-family: "Cinzel", serif;
-  letter-spacing: 0.06em;
-}
-
-.body-font {
-  font-family: "Inter", sans-serif;
-}
-
-/* ✨ Reveal text */
 .reveal-text {
   opacity: 0;
 }
 
-/* ⏳ Countdown Premium */
+/* ============================= */
+/* ⏳ COUNTDOWN PREMIUM */
+/* ============================= */
+
 #countdown {
   display: flex;
   gap: 18px;
@@ -115,21 +183,12 @@ body {
   opacity: 0.75;
 }
 
-/* 🦖 Dino cinematic hover */
-.dino {
-  transition: transform 0.3s ease;
-}
-
-.dino:hover {
-  transform: scale(1.06) rotate(-0.5deg);
-}
-
-/* 🌿 Fondo jungle premium */
-.jungle-bg {
-  background: url("/images/jungle-long.jpg") center / cover fixed;
-}
+/* ============================= */
+/* ⏳ RELOJ ARENA */
+/* ============================= */
 
 .hourglass {
+  position: relative;
   width: 120px;
   height: 180px;
   border: 3px solid rgba(255, 255, 255, 0.6);
@@ -179,6 +238,10 @@ body {
   }
 }
 
+/* ============================= */
+/* 🌿 FINAL PLANT CLOSING */
+/* ============================= */
+
 #plant-close {
   position: fixed;
   inset: 0;
@@ -214,12 +277,40 @@ body {
   color: gold;
 }
 
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: url("/images/film-grain.png");
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 9999;
+/* ============================= */
+/* 🎞 FILM GRAIN */
+/* ============================= */
+
+
+.galeria {
+  padding: 60px 20px;
+  background: radial-gradient(circle, #020202, #000);
+  text-align: center;
+}
+
+.galeria h2 {
+  color: #d4af37;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.foto {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform .3s ease, box-shadow .3s ease;
+  cursor: pointer;
+}
+
+.foto:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(212, 175, 55, .35);
 }
