@@ -17,7 +17,10 @@ export default function Page() {
 
 const [images, setImages] = useState<GalleryImage[]>([]);
 const [selected, setSelected] = useState<GalleryImage | null>(null);
-  const [uploading, setUploading] = useState(false);
+const [uploading, setUploading] = useState(false);
+const [canUpload, setCanUpload] = useState(false);
+
+const EVENT_DATE = new Date("2026-02-20T14:00:00").getTime();
 
   // 📸 LOAD IMAGES
   async function loadImages() {
@@ -91,7 +94,9 @@ async function deletePhoto(name: string) {
 useEffect(() => {
   // 📸 Cargar galería al iniciar
   loadImages();
-  
+  const now = Date.now();
+  setCanUpload(now >= EVENT_DATE);
+
   // 🦖 Inicializar sonidos UNA sola vez
   sounds.current = {
     jurassicTheme: new Howl({
@@ -222,6 +227,19 @@ useEffect(() => {
 
   updateCountdown();
   const interval = setInterval(updateCountdown, 1000);
+
+  gsap.from("footer", {
+  opacity: 0,
+  y: 60,
+  duration: 1.4,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: "footer",
+    start: "top 85%"
+  }
+});
+
+
 
   return () => {
     Object.values(sounds.current || {}).forEach((sound: any) => sound?.stop());
@@ -356,22 +374,26 @@ useEffect(() => {
         </section>
 
         {/* 📸 GALERÍA SUPABASE */}
-<section className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center">
+            <section className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center">
 
-  <h2 className="title-font text-4xl md:text-5xl mb-6">
-    📸 Galería de la aventura
-  </h2>
-
-  <label className="cursor-pointer px-6 py-3 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition mb-8">
-    {uploading ? "Subiendo..." : "Subir foto"}
-    <input
-      type="file"
-      accept="image/*"
-      onChange={uploadPhoto}
-      className="hidden"
-    />
-  </label>
-
+                <h2 className="title-font text-4xl md:text-5xl mb-6">
+                  📸 Galería de la aventura
+                </h2>
+              {canUpload ? (
+                <label className="cursor-pointer px-6 py-3 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition mb-8">
+                  {uploading ? "Subiendo..." : "Subir foto"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={uploadPhoto}
+                    className="hidden"
+                  />
+                </label>
+              ) : (
+                <div className="px-6 py-3 bg-gray-700 text-gray-300 font-bold rounded-xl mb-8 opacity-80">
+                  📸 La galería se habilita el día del evento
+                </div>
+              )}
   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-6xl">
 
     {images.map((img, i) => (
@@ -385,13 +407,11 @@ useEffect(() => {
           onClick={() => setSelected(img)}
           className="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-110"
         />
-
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/40 
                 opacity-100 md:opacity-0 
                   md:group-hover:opacity-100 
                 transition flex items-end justify-between p-2">
-
           <button
             onClick={() => setSelected(img)}
             className="text-white text-xs bg-black/60 px-2 py-1 rounded"
@@ -405,27 +425,79 @@ useEffect(() => {
           >
             Borrar
           </button>*/}
-
         </div>
       </div>
     ))}
-
   </div>
-
+</section>
+{/* 🦖 SECCIÓN FINAL — NOMBRE TOMÁS */}
+<section className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
+  <img 
+    src="/images/tomas-jurassic.png" 
+    alt="Tomás Jurassic"
+    className="max-w-[320px] md:max-w-[520px] drop-shadow-[0_0_35px_rgba(255,180,0,0.6)] animate-fadeIn"
+  />
+  <p className="text-3xl md:text-4xl text-center title-font relative z-10">
+    LA AVENTURA TE ESPERA…
+  </p>
 </section>
 
+{/* 🧠 FOOTER — NET-ING SOLUCIONES IT */}
+<footer className="bg-black/95 border-t border-white/10 py-12 px-6 text-center">
 
+  {/* LOGO OPCIONAL */}
+  <img 
+    src="/images/net-ing-logo.png" 
+    alt="Net-Ing Logo"
+    className="mx-auto mb-3 max-h-[109px] opacity-90 hover:scale-110 transition duration-500"
+  />
 
-        {/* FINAL */}
-        <section id="section-final" className="min-h-[55vh] flex flex-col items-center justify-center text-center px-6">
-          <h2 className="title-font text-5xl md:text-7xl font-extrabold text-green-400 drop-shadow-[0_0_30px_rgba(0,255,150,0.6)]">
-            LA AVENTURA TE ESPERA
-          </h2>
-          <p className="mt-6 text-lg tracking-widest">TOMÁS</p>
-        </section>
+  <p className="text-sm opacity-70 mb-6">
+    Desarrollado por <span className="font-bold text-yellow-400">Net-Ing Soluciones IT</span>
+  </p>
 
-      </div>
-    </main>
+  {/* REDES SVG */}
+  <div className="flex justify-center gap-8">
+
+    {/* INSTAGRAM */}
+    <a 
+      href="https://instagram.com/neting_solutions/"
+      target="_blank"
+      className="group transition hover:scale-125"
+    >
+      <svg className="w-7 h-7 text-white group-hover:text-pink-400 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="1.6" />
+        <circle cx="12" cy="12" r="4" strokeWidth="1.6" />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+      </svg>
+    </a>
+
+    {/* FACEBOOK */}
+    <a 
+      href="https://facebook.com/netingsolutions"
+      target="_blank"
+      className="group transition hover:scale-125"
+    >
+      <svg className="w-7 h-7 text-white group-hover:text-blue-400 transition duration-300" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2c0-2 1.2-3 3-3h2v3h-1c-1 0-1 .5-1 1v1h2.5l-.5 3h-2v7A10 10 0 0 0 22 12z"/>
+      </svg>
+    </a>
+
+    {/* WHATSAPP */}
+    <a 
+      href="https://wa.me/+5493704013979"
+      target="_blank"
+      className="group transition hover:scale-125"
+    >
+      <svg className="w-7 h-7 text-white group-hover:text-green-400 transition duration-300" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.5 3.5A11 11 0 0 0 3.6 19.9L2 22l2.2-.6A11 11 0 1 0 20.5 3.5ZM12 20a8 8 0 0 1-4-1l-.3-.2-2.5.7.7-2.4-.2-.3a8 8 0 1 1 6.3 3.2Zm4.4-5.6c-.2-.1-1.3-.6-1.5-.7s-.4-.1-.6.1-.7.7-.9.9-.3.2-.6.1a6.4 6.4 0 0 1-1.9-1.2 7 7 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.2.3-.4.1-.1.1-.3 0-.5s-.6-1.5-.8-2-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4s-1 1-.9 2.4 1 2.8 1.1 3 .2.4.4.6a10.6 10.6 0 0 0 4.5 3.9c.6.2 1.1.3 1.5.2.5-.1 1.3-.5 1.5-1s.2-.9.1-1-.2-.1-.4-.2Z"/>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+</div>
+</main>
     </>
   );
 }
