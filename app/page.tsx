@@ -121,7 +121,7 @@ useEffect(() => {
     setInterval(() => {
     const roar = Math.random() > 0.5 ? "trex" : "raptor";
     sounds.current[roar]?.play();
-    }, 8000);
+    }, 12000);
 
 
     // 🎼 Iniciar música principal
@@ -345,7 +345,7 @@ useEffect(() => {
             Confirmar asistencia
           </h2>
           <a
-            href="https://wa.me/XXXXXXXXXX?text=Confirmo asistencia al cumple jurásico 🦖🔥"
+            href="https://wa.me/+5493704694631?text=Confirmo asistencia al cumple jurásico 🦖🔥"
             target="_blank"
             className="px-8 py-4 bg-green-600 rounded-xl font-bold hover:scale-105 transition"
           >
