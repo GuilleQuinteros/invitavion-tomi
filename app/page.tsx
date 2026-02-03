@@ -300,15 +300,17 @@ useEffect(() => {
 
   <iframe
     className="w-full max-w-3xl h-[320px] rounded-xl border border-white/20 shadow-xl"
-    src="https://maps.google.com/maps?q=Pacaa%209555%20Laguna%20Soto%20Corrientes&t=&z=16&ie=UTF8&iwloc=&output=embed"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2945.8647926215885!2d-58.74142792526764!3d-27.45151201593023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94456bb3c104ade9%3A0x31ef234d1e68aec7!2sLa%20Escondida%20%22Espacio%20para%20Eventos%22!5e1!3m2!1ses-419!2sar!4v1770140131675!5m2!1ses-419!2sar"
   />
         <a
-          href="https://maps.google.com/?q=Pacaa+9555+Laguna+Soto+Corrientes"
-          target="_blank"
-          className="mt-6 px-7 py-3 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition title-font shadow-lg"
-          >
-              Cómo llegar
-            </a>
+          href={
+            typeof navigator !== "undefined" && /iPhone|Android/i.test(navigator.userAgent)
+              ? "google.navigation:q=Pacaa+9555+Laguna+Soto+Corrientes"
+              : "https://www.google.com/maps/dir/?api=1&destination=Pacaa+9555+Laguna+Soto+Corrientes&travelmode=driving"
+              }
+                target="_blank"
+                className="mt-6 px-7 py-3 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition title-font shadow-lg"
+                >Cómo llegar</a>
       </section>
 
         {/* 🦖 TREX */}
